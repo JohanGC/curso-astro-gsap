@@ -1,0 +1,9 @@
+---
+interface Props { titulo: string; texto?: string; }
+const { titulo, texto = 'Sin descripción' } = Astro.props;
+---
+
+<article class='card'>
+    <h3>{titulo}</h3>
+    <p>{texto}</p>
+</article>
