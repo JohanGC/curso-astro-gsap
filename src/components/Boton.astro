@@ -1,0 +1,22 @@
+---
+import Layout from '@/layouts/Layout.astro';
+interface Props {
+    variante?: 'solido' | 'contorno';
+    href?: string;
+    class?: string;
+}
+const { variante = 'solido', href='#', class: extra, ...resto } = Astro.props;
+---
+<Layout title="Botón">
+    <a href={href}
+    class:list={[
+        'inline-block rounded-full px-8 py-4 font-medium',
+        variante === 'solido' && 'bg-aurora-900 text-white hover:bg-aurora-500',
+        variante === 'contorno' && 'border border-aurora-900 hover:bg-aurora-900 hover:text-white',
+        extra,
+    ]}
+    {...resto}
+    >
+        <slot />
+    </a>
+</Layout>

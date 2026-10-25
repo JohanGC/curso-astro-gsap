@@ -4,9 +4,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const lenis = new Lenis({
-    lerp: 0.05, autoRaf: false
+export const lenis = new Lenis ({
+    lerp: 0.1, autoRaf: false,
+    smoothWheel: true,
 });
+
 //1) cada vez que Lenis mueve el scroll, ScrollTrigger se actualiza
 lenis.on('scroll', ScrollTrigger.update);
 
@@ -17,9 +19,9 @@ gsap.ticker.add((time) => lenis.raf(time * 1000));
 gsap.ticker.lagSmoothing(0);
 
 
-function raf(time: number) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-}
+// function raf(time: number) {
+//     lenis.raf(time);
+//     requestAnimationFrame(raf);
+// }
 
-requestAnimationFrame(raf);
+// requestAnimationFrame(raf);

@@ -1,10 +1,59 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import Card from '@/components/Card.astro';
+import Boton from '@/components/Boton.astro';
+import { getCollection } from 'astro:content';
+
+const proyectos = await getCollection('proyectos');
+const destacados = proyectos.filter((p: any) => p.data.destacado);
 ---
+
 <Layout title="Mi Sitio Web">
 	<main>
+		<!-- <h1>Bienvenido</h1>
+		<Card titulo="Astro" texto="Framework orientado a contenido" />
+		<Card titulo="Lenis" texto="Scroll suave" />
+		<Card titulo="GSAP" texto="Animaciones" />
+		<a href="/sobre">Ir a sobre</a> -->
+		
+		<!-- <ul>
+			{destacados.map((p: any) => <li>{p.data.titulo}</li>)}
+		</ul>
+
 		<h1 style="background-color: rgb(248, 157, 157); color:white; height: 100vh">Zona 1</h1>
+		<Boton variante='contorno' href='#contacto' data-magnetic>Contacto</Boton>
 		<h1 style="background-color: rgb(245, 220, 188); color:white; height: 100vh">Zona 1</h1>
-		<h1 style="background-color: rgb(186, 247, 244); color:white; height: 100vh">Zona 1</h1>
+		<h1 style="background-color: rgb(186, 247, 244); color:white; height: 100vh">Zona 1</h1> -->
+
+		<!-- //EJERCICIO 4 -->
+		<nav class="menu">
+			<a href="#s1">Sección Número 1</a>
+			<a href="#s2">Sección Número 2</a>
+			<a href="#s3">Sección Número 3</a>
+			<a href="#s4">Sección Número 4</a>
+			<a href="#s5">Sección Número 5</a>
+		</nav>
+
+		<section id="s1" class="bloque">Sección 1</section>
+		<section id="s2" class="bloque">Sección 2</section>
+		<section id="s3" class="bloque">Sección 3</section>
+		<section id="s4" class="bloque">Sección 4</section>
+		<section id="s5" class="bloque">Sección 5</section>
+
+		<button id="arriba" type="button" aria-label="Volver Arriba">↑</button>
+
+		<script>
+			import { lenis } from '../scripts/smooth-scroll';
+			document.getElementById('arriba')?.addEventListener('click', () => {
+				lenis.scrollTo(0, { duration: 1.5 });
+			})
+		</script>
 	</main>
 </Layout>
+
+<style is:global>
+	.menu { position: fixed; top: 1rem; left: 1rem; display: flex; gap: 1rem; z-index: 10; }
+	.bloque { height: 100vh; display: grid; place-items: center; font-size: 3rem; }
+	.bloque:nth-of-type(odd) { background: #f4f1ea; }
+	#arriba { position: fixed; right: 1rem; bottom: 1rem; width: 3rem; height: 3rem; border-radius: 50%; }
+</style>

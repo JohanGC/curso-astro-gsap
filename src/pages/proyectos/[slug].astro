@@ -1,0 +1,19 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+export function getStaticPaths() {
+    const proyectos = [
+        { slug: 'alfa', titulo: 'Proyecto Alfa' },
+        { slug: 'beta', titulo: 'Proyecto Beta' },
+    ];
+    return proyectos.map((p) => ({
+        params: { slug: p.slug },
+        props: { titulo: p.titulo },
+    }));
+}
+
+const { titulo } = Astro.props;
+---
+<Layout title={titulo}>
+    <h1>{titulo}</h1>
+</Layout>
