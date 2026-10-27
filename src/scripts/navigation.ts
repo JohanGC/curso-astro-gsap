@@ -1,6 +1,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { lenis } from '@/scripts/smooth-scroll';
+import { bloquearScroll } from './scroll-lock';
 
 gsap.registerPlugin(ScrollTrigger);
 
