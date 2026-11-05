@@ -7,38 +7,56 @@ import { getCollection } from 'astro:content';
 const proyectos = await getCollection('proyectos');
 const destacados = proyectos.filter((p: any) => p.data.destacado);
 
-const secciones = [
-	{ id: 's1', titulo: 'Seccion1'},
-	{ id: 's2', titulo: 'Seccion2'},
-	{ id: 's3', titulo: 'Seccion3'},
-	{ id: 's4', titulo: 'Seccion4'},
-	{ id: 's5', titulo: 'Seccion5'},
+const enlaces = [
+	{ id: 's1', texto: 'Seccion1'},
+	{ id: 's2', texto: 'Seccion2'},
+	{ id: 's3', texto: 'Seccion3'},
+	{ id: 's4', texto: 'Seccion4'},
+	{ id: 's5', texto: 'Seccion5'},
 ]
 ---
 
-<Layout title="Mi Sitio Web">
-	<header class="cabecera">
-		<a href="#inicio">Aurora</a>
-		<nav aria-label="Principal">
-			{secciones.map((s) => <a href={`#${s.id}`} data-enlace={s.id}>{s.titulo}</a>)}
+<Layout title="Mi Sitio Web - Con Navegación Completa">
+	<header class="fixed inset-x-0 top-0 z-40 flex items-center justify-between bg-aurora-50/80 px-6 py-4 backdrop-blur-md">
+		<a href="#inicio" class="text-xl font-bold">Aurora</a>
+		<nav class="hidden gap-8 md:flex">
+			{enlaces.map((e) => <a href={`#${e.id}`} data-enlace={e.id} class="opacity-50 transition-opacity data-[activo=true]:opacity-100">{e.texto}</a>)}
 		</nav>
-		<button type="button" class="botom-menu" data-menu-boton aria-expanded="false" aria-controls="menu-movil" aria-label="Menu">☰</button>
+		<button data-menu-boton type="button" aria-expanded="false" aria-label="Abrir Menú" class="md-hidden">☰</button>
 	</header>
+	<main id="contenido">
 
-	<div id="menu-movil" class="menu-movil" data-menu hidden>
-		{secciones.map((s) => <a href={`#${s.id}`} data-enlace={s.id}>{s.titulo}</a>)}
+	<div data-menu data-lenis-prevent class="invisible fixed inset-0 z-30 flex flex-col items-center justify-center gap-8 bg-aurora-900 text-3xl text-white">
+		{enlaces.map((e) => <a href={`#${e.id}`} data-enlace={e.id}>{e.texto}</a>)}
 	</div>
 
-	<main id="contenido">
-		{secciones.map((s) => (
-			<section id="s.id" data-seccion class="seccion"><h2>{s.titulo}</h2></section>
+		{enlaces.map((e) => (
+			<section id={e.id} data-seccion class="flex min-h-svh items-center justify-center text-6xl font-bold even:bg-aurora-50"><h2>{e.texto}</h2></section>
 		))}
 
-		<button class="arriba" type="button" data-arriba aria-label="Volver Arriba">↑</button>
+		<button data-arriba type="button" aria-label="Volver Arriba "class="fixed bottom-6 right-6 z-40 size-12 rounded-full bg-aurora-900 text-white">↑</button>
 
 		<script>
-			import { initNavigation } from '@/scripts/navigation';
-			initNavigation();
+			import { iniciarNav } from '@/scripts/navigation';
+			iniciarNav();
 		</script>
 	</main>
 </Layout>
+
+<script>
+	import { lenis } from '@/scripts/smooth-scroll';
+	import { iniciarNav } from '@/scripts/navigation';
+
+	let limpiarNav: (() => void) | null = null;
+	
+	document.addEventListener('astro:page-load', () => {
+		limpiarNav = iniciarNav();
+	});
+	document.addEventListener('astro:before-swap', () => {
+		limpiarNav?.();
+		limpiarNav = null;
+	});
+	document.addEventListener('astro:after-swap', () => {
+		lenis.scrollTo(0, { immediate: true });
+	});
+</script>

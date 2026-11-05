@@ -1,12 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+    --color-aurora-50: #f4f1ea;
+    --color-aurora-500: #e8553d;
+    --color-aurora-900: #14110f;
+}
+
+/* Reserva el espacio de la barra de scroll (evita saltos al bloquear) */
+html { scrollbar-gutter: stable; }
+
+/* CSS recomendado para lenis*/
 html.lenis, html.lenis body { height: auto }
 .lenus.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-stopped { overflow: hidden; }
 
-* {
+body {
     margin: 0;
 }
 
+
+/* 
 [data-menu] [hidden] { display: none; }
 [data-enlace] { opacity: 0.5; transition: opacity 0.2s ease; }
 [data-enlace].activo { opacity: 1; }
@@ -30,4 +44,4 @@ html.lenis, html.lenis body { height: auto }
 @media (max-width: 767px) {
     .cabecera nav { display: none; }
     .boton-menu { display: block; }
-}
+} */
